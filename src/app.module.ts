@@ -17,11 +17,11 @@ import { AdminModule } from './admin/admin.module';
 @Module({
   imports: [TypeOrmModule.forRoot({
     type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'tati', 
-    password: '123',  
-    database: 'test',
+    host: 'mysql-159caac8-tatitaye0-03ac.a.aivencloud.com',//'localhost',
+    port: 26637,//3306,
+    username:'avnadmin', //'tati', 
+    password: 'AVNS_luoZzR5b1SjmKg9dNor',//'123',  
+    database: 'defaultdb',//'test',
     entities: [todo, User,Message,Chat,Notification],
     synchronize: true,
   }),TodoModule, UserModule, MessageModule, ChatModule, NotificationModule, AdminModule],
