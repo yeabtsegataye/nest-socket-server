@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TodoModule } from './todo/todo.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { todo } from './typeorm/entitiy/todo';
-import { MyWebSocketGateway } from './socket/websocket.gateway';
+// import { MyWebSocketGateway } from './socket/websocket.gateway';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { MessageModule } from './message/message.module';

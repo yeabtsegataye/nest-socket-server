@@ -1,11 +1,11 @@
 // chat.controller.ts
 
 import { Controller, Post, Body } from '@nestjs/common';
-import { MyWebSocketGateway } from './websocket.gateway';
+import { NotificationGateway } from '../notification/notification.controller';
 
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly wsGateway: MyWebSocketGateway) {}
+  constructor(private readonly wsGateway: NotificationGateway) {}
 
   @Post('join-room')
   joinRoom(@Body() data: { userId: string, roomId: string }) {

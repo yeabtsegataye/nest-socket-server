@@ -93,22 +93,18 @@ export class NotificationGateway implements OnModuleInit {
     });
   }
 
-  async emitNotificationToAdmins(notification, role) {
-    // Get admin sockets from the group map based on the 'admin' role
-    const adminSockets = this.socketMapGroup.get('admin') || [];
-
-    // Send notification to admin sockets
-    adminSockets.forEach(socketMeta => {
-      this.server.to(socketMeta.socketId).emit('notification', notification);
-    });
-
-    // Log if no admin sockets found
-    if (adminSockets.length === 0) {
-      console.log('No admin users online at the moment!');
+  async emitNotificationToUser(userId: string, notification: any) {
+    // Check if the user is online
+    if (this.socketMap.has(userId)) {
+      const userSocket = this.socketMap.get(userId);
+      this.server.to(userSocket.socketId).emit('notification', notification);
+    } else {
+      console.log(`User with ID ${userId} is not online.`);
     }
   }
+  
 
-  async emitNotificationToGroups(notification, role: string) {
+  async emitNotificationToGroups(notification : any, role: string) {
     // Get sockets from the group map based on the provided role
     const sockets = this.socketMapGroup.get(role) || [];
 
@@ -123,6 +119,16 @@ export class NotificationGateway implements OnModuleInit {
     }
   }
 
+  @SubscribeMessage('joinRoom')
+  handleJoinRoom(client: Socket, room: string) {
+    client.join(room);
+    console.log(`Client ${client.id} joined room ${room}`);
+  }
+
+  @SubscribeMessage('sendMessage')
+  handleMessage(client: Socket, data: any) {
+    this.server.to(data.room).emit('connection', data.message);
+  }
   @SubscribeMessage('currentUsers')
   async currentUsers(client: Socket) {
     client.emit('currentUsers', Array.from(this.socketMap.values()));

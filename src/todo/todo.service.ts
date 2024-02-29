@@ -4,7 +4,7 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { todo } from 'src/typeorm/entitiy/todo';
-import { MyWebSocketGateway } from '../socket/websocket.gateway';
+// import { MyWebSocketGateway } from '../socket/websocket.gateway';
 import { Notification } from 'src/notification/entities/notification.entity';
 import { NotificationGateway } from '../notification/notification.controller'; // Import your WebSocketGateway
 
@@ -39,7 +39,7 @@ export class TodoService {
     const role = "admin"
 
     // Emit notification to admins using NotificationGateway
-    await this.notificationGateway.emitNotificationToAdmins(savedNotification,role);
+    // await this.notificationGateway.emitNotificationToAdmins(savedNotification,role);
 
     return savedTodo;
   }
